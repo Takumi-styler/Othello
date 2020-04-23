@@ -25,14 +25,14 @@ public class StageLine : MonoBehaviour
             pos[1] = new Vector3(-(sizex / 2), (sizey / 2) - (gapy * i));
             line.GetComponent<LineRenderer>().SetPosition(0, pos[0]);
             line.GetComponent<LineRenderer>().SetPosition(1, pos[1]);
-            Instantiate(line);
+            Instantiate(line, transform);
             //vertical
             line.GetComponent<LineRenderer>().positionCount = 2;
             pos[0] = new Vector3((sizex / 2) - (gapx * i), (sizey / 2));
             pos[1] = new Vector3((sizex / 2) - (gapx * i), -(sizey / 2));
             line.GetComponent<LineRenderer>().SetPosition(0, pos[0]);
             line.GetComponent<LineRenderer>().SetPosition(1, pos[1]);
-            Instantiate(line);
+            Instantiate(line, transform);
         }
     }
 
