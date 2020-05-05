@@ -296,6 +296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1035200565}
+  - component: {fileID: 1035200567}
   - component: {fileID: 1035200566}
   m_Layer: 0
   m_Name: Stage
@@ -334,6 +335,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   line: {fileID: 8643116201672853565, guid: 2a72046fdfd5b35498f7862d0e504424, type: 3}
+  sizex: 0
+  sizey: 0
+  gapx: 0
+  gapy: 0
+--- !u!114 &1035200567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035200564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e957ac868ce54044480b64870fdc35dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackStone: {fileID: 3370501635119960500, guid: 21a5066c664f29c4a9511339e7efee2e,
+    type: 3}
+  whiteStone: {fileID: 1419352844947187336, guid: 2c424c5a791e2f84d83460483d2840ed,
+    type: 3}
 --- !u!1 &1415023339
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class StageLine : MonoBehaviour
     public GameObject line;
     GameObject backgroundStage;
     Vector3[] pos = new Vector3[2];
-    float sizex,sizey,gapx,gapy;
+    public float sizex,sizey,gapx,gapy;
 
     // Start is called before the first frame update
     void Start()
