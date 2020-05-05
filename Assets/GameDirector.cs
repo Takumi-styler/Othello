@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoneDirector : MonoBehaviour
+public class GameDirector : MonoBehaviour
 {
     FieldData[,] fieldData = new FieldData[10,10];
     StoneRenderer stoneRenderer;
@@ -17,20 +17,29 @@ public class StoneDirector : MonoBehaviour
                 fieldData[i, j] = new FieldData();
             }
         }
+        fieldData[4, 4].StoneState = 1;
+        fieldData[5, 5].StoneState = 1;
+        fieldData[5, 4].StoneState = 2;
+        fieldData[4, 5].StoneState = 2;
         stoneRenderer = GameObject.Find("Stage").GetComponent<StoneRenderer>();
+        stoneRenderer.FieldData = fieldData;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+    }
+    public FieldData[,] FieldData
+    {
+        get => fieldData;
+        set
         {
-            fieldData[3, 3].StoneState = 1;
-            stoneRenderer.FieldData=fieldData;
-
+            fieldData = value;
+            //temp
+            stoneRenderer.FieldData = this.FieldData;
         }
     }
 
 
-    
 }
