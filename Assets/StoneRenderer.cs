@@ -52,7 +52,7 @@ public class StoneRenderer : MonoBehaviour
         {
             for (int j = 1; j < 9; j++)
             {
-                vector = new Vector3((-stageLine.sizex / 2) + ((stageLine.gapy * (j)) - 0.3f), (stageLine.sizey / 2) - ((stageLine.gapy * (i - 1)) + 0.3f));
+                vector = new Vector3((-stageLine.sizex / 2) + ((stageLine.gapy * (i)) - 0.3f), (stageLine.sizey / 2) - ((stageLine.gapy * (j - 1)) + 0.3f));
 
                 if (FieldData[i, j].StoneState == 1)
                 {
