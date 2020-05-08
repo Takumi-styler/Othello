@@ -2,15 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GameDirector : MonoBehaviour
 {
     FieldData[,] fieldData = new FieldData[10,10];
     StoneRenderer stoneRenderer;
+    GameObject turnText;
+    GameObject Win;
     Player[] player;
     bool turn = true;
     int opponentStone, stone;
-
+    int placeableCount = 1;
+    bool inGame = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,26 +36,80 @@ public class GameDirector : MonoBehaviour
             new Player1(1,2),
             new Player1(2,1)
         };
+        turnText = GameObject.Find("ColorText");
+        Win = GameObject.Find("Win");
+        Win.GetComponent<Text>().enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        int playerNo = turn ? 0 : 1;
-        opponentStone = turn ? 2 : 1;
-        stone = turn ? 1 : 2;
-
-        checkPlaceable();
-
-        if (player[playerNo].placeStone(ref fieldData))
+        if (inGame)
         {
-            stoneRenderer.FieldData = fieldData;
-            turn = !turn;
+            int playerNo = turn ? 0 : 1;
+            opponentStone = turn ? 2 : 1;
+            stone = turn ? 1 : 2;
+
+            if (checkPlaceable() == 0)
+            {
+                inGame = false;
+            }
+
+            if (player[playerNo].placeStone(ref fieldData) || placeableCount == 0)
+            {
+                stoneRenderer.FieldData = fieldData;
+                turn = !turn;
+            }
+
+            if (stone == 1)
+            {
+                turnText.GetComponent<Text>().text = "BLACK";
+                turnText.GetComponent<Text>().color = new Color(0, 0, 0);
+            }
+            if (stone == 2)
+            {
+                turnText.GetComponent<Text>().text = "WHITE";
+                turnText.GetComponent<Text>().color = new Color(255, 255, 255);
+            }
+        }
+        else
+        {
+            if (countStone())
+            {
+                Win.GetComponent<Text>().text = "Black Wins";
+                Win.GetComponent<Text>().color = new Color(0, 0, 0);
+            }
+            else
+            {
+                Win.GetComponent<Text>().text = "White Wins";
+                Win.GetComponent<Text>().color = new Color(255, 255, 255);
+            }
+            Win.GetComponent<Text>().enabled = true;
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                SceneManager.LoadScene("GameScene");
+            }
         }
     }
 
-    private void checkPlaceable()
+    private bool countStone()
     {
+        int count = 0;
+        foreach (FieldData i in fieldData)
+        {
+            if (i.StoneState==1)
+            {
+                count++;
+            }
+        }
+        return count > 32;
+    }
+
+    private int checkPlaceable()
+    {
+        int empty = 0;
+        placeableCount = 0;
         Vector2Int vector2Int = new Vector2Int();
         for(vector2Int.x = 1; vector2Int.x < 9; vector2Int.x++)
         {
@@ -60,8 +118,10 @@ public class GameDirector : MonoBehaviour
                 fieldData[vector2Int.x, vector2Int.y].Placeable = false;
                 if (fieldData[vector2Int.x, vector2Int.y].StoneState != 0) { continue; }
                 placeable(vector2Int);
+                empty++;
             }
         }
+        return empty;
     }
 
     private void placeable(Vector2Int pos)
@@ -83,7 +143,8 @@ public class GameDirector : MonoBehaviour
                             nextblock.Set(nextblock.x + result.x, nextblock.y + result.y);
                             if (fieldData[nextblock.x, nextblock.y].StoneState == stone)
                             {
-                            fieldData[pos.x, pos.y].Placeable = true;
+                                fieldData[pos.x, pos.y].Placeable = true;
+                            placeableCount++;
                             }
                             if (fieldData[nextblock.x, nextblock.y].StoneState == 0) { break; }
                         }
