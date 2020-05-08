@@ -19,9 +19,11 @@ public class Player1 : Player
             Vector2Int calculated = new Vector2Int();
             calculated.x = calculatex(clickposition.x);
             calculated.y = calculatey(clickposition.y);
-            Debug.Log(calculated.x + " " + calculated.y);
-            fieldDatas = calculateFlip(fieldDatas, calculated);
-            return true;
+            if (fieldDatas[calculated.x,calculated.y].Placeable) {
+                fieldDatas = calculateFlip(fieldDatas, calculated);
+                return true;
+            }
+            return false;
         }
         return false;
     }
