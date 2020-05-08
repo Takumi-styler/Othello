@@ -6,7 +6,7 @@ public class GameDirector : MonoBehaviour
 {
     FieldData[,] fieldData = new FieldData[10,10];
     StoneRenderer stoneRenderer;
-    Player1 player1;
+    Player[] player;
 
     // Start is called before the first frame update
     void Start()
@@ -18,22 +18,23 @@ public class GameDirector : MonoBehaviour
                 fieldData[i, j] = new FieldData();
             }
         }
-        fieldData[4, 1].StoneState = 2;
-        fieldData[4, 2].StoneState = 2;
-        fieldData[4, 3].StoneState = 2;
-        fieldData[4, 4].StoneState = 2;
+        fieldData[4, 4].StoneState = 1;
+        fieldData[5, 5].StoneState = 1;
         fieldData[4, 5].StoneState = 2;
-        fieldData[4, 6].StoneState = 2;
-        fieldData[4, 7].StoneState = 2;
+        fieldData[5, 4].StoneState = 2;
         stoneRenderer = GameObject.Find("Stage").GetComponent<StoneRenderer>();
         stoneRenderer.FieldData = fieldData;
-        player1 = GetComponent<Player1>();
+        player = new Player1[]
+        {
+            new Player1(1,2),
+            new Player1(2,1)
+        };
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player1.placeStone(ref fieldData))
+        if (player[1].placeStone(ref fieldData))
         {
             stoneRenderer.FieldData = fieldData;
         }
