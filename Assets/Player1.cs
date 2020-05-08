@@ -7,8 +7,8 @@ public class Player1 : MonoBehaviour
     FieldData[,] fieldData = new FieldData[10, 10];
     GameDirector gameDirector;
     public Vector3 clickposition;
-    public int gap;
-    public float startx = 50, starty;
+    public int gap = 77;
+    public float startx = 50, starty=950;
     const int stone = 1, opponentStone=2;
 
     // Start is called before the first frame update
@@ -64,12 +64,12 @@ public class Player1 : MonoBehaviour
 
                         result.Set(j - pos.x, i - pos.y);
                         Debug.Log(result.x + " direction confirmed " + result.y);
-
+                        nextblock.Set(pos.x + result.x, pos.y + result.y);
 
                         // strange from here
                         while (within1to9(nextblock))
                         {
-                            nextblock.Set(pos.x + result.x, pos.y + result.y);
+                            nextblock.Set(nextblock.x + result.x, nextblock.y + result.y);
                             Debug.Log(nextblock.x + " next block confirmed " + nextblock.y);
                             if (fieldData[nextblock.x, nextblock.y].StoneState == stone)
                             {
@@ -82,6 +82,7 @@ public class Player1 : MonoBehaviour
                             }
                         }
                     }
+
                 }
             }
         }
