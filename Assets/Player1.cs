@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player1 : MonoBehaviour
 {
     FieldData[,] fieldData = new FieldData[10, 10];
-    GameDirector gameDirector;
     public Vector3 clickposition;
     public int gap = 77;
     public float startx = 50, starty=950;
@@ -21,17 +20,14 @@ public class Player1 : MonoBehaviour
                 fieldData[i, j] = new FieldData();
             }
         }
-        gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        placeStone();
     }
 
-    public void placeStone()
+    public bool placeStone(ref FieldData[,] fieldDatas)
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -41,11 +37,13 @@ public class Player1 : MonoBehaviour
             calculated.x = calculatex(clickposition.x);
             calculated.y = calculatey(clickposition.y);
             Debug.Log(calculated.x + " " + calculated.y);
-            fieldData = gameDirector.FieldData;
+            fieldData = fieldDatas;
             fieldData[calculated.x, calculated.y].StoneState = 1;
             flip(calculated);
-            gameDirector.FieldData = fieldData;
+            fieldDatas = fieldData;
+            return true;
         }
+        return false;
     }
 
     private void flip(Vector2Int pos)
