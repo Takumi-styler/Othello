@@ -7,6 +7,7 @@ public class GameDirector : MonoBehaviour
     FieldData[,] fieldData = new FieldData[10,10];
     StoneRenderer stoneRenderer;
     Player[] player;
+    bool turn = true;
 
     // Start is called before the first frame update
     void Start()
@@ -34,9 +35,11 @@ public class GameDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player[1].placeStone(ref fieldData))
+        int playerNo = turn ? 0 : 1;
+        if (player[playerNo].placeStone(ref fieldData))
         {
             stoneRenderer.FieldData = fieldData;
+            turn = !turn;
         }
     }
 }
