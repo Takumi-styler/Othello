@@ -20,12 +20,9 @@ public class StoneRenderer : MonoBehaviour
             for(int j = 0; j < 10; j++)
             {
                 FieldData[i, j] = new FieldData();
+
             }
         }
-        FieldData[4, 4].StoneState = 1;
-        FieldData[5, 5].StoneState = 1;
-        FieldData[5, 4].StoneState = 2;
-        FieldData[4, 5].StoneState = 2;
         stageLine = GetComponent<StageLine>();
 
         
@@ -55,7 +52,7 @@ public class StoneRenderer : MonoBehaviour
         {
             for (int j = 1; j < 9; j++)
             {
-                vector = new Vector3((stageLine.sizex / 2) - ((stageLine.gapy * (j - 1)) + 0.3f), (stageLine.sizey / 2) - ((stageLine.gapy * (i - 1)) + 0.3f));
+                vector = new Vector3((-stageLine.sizex / 2) + ((stageLine.gapy * (i)) - 0.3f), (stageLine.sizey / 2) - ((stageLine.gapy * (j - 1)) + 0.3f));
 
                 if (FieldData[i, j].StoneState == 1)
                 {
