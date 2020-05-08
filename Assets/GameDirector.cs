@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameDirector : MonoBehaviour
 {
     FieldData[,] fieldData = new FieldData[10,10];
     StoneRenderer stoneRenderer;
+    GameObject turnText;
     Player[] player;
     bool turn = true;
     int opponentStone, stone;
@@ -32,6 +34,7 @@ public class GameDirector : MonoBehaviour
             new Player1(1,2),
             new Player1(2,1)
         };
+        turnText = GameObject.Find("ColorText");
     }
 
     // Update is called once per frame
@@ -47,6 +50,17 @@ public class GameDirector : MonoBehaviour
         {
             stoneRenderer.FieldData = fieldData;
             turn = !turn;
+        }
+
+        if(stone == 1)
+        {
+            turnText.GetComponent<Text>().text = "BLACK";
+            turnText.GetComponent<Text>().color = new Color(0,0,0);
+        }
+        if (stone == 2)
+        {
+            turnText.GetComponent<Text>().text = "WHITE";
+            turnText.GetComponent<Text>().color = new Color(255, 255, 255);
         }
     }
 
