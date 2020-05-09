@@ -15,7 +15,10 @@ public class Player1 : Player
         if (Input.GetMouseButtonDown(0))
         {
             // マウスをクリックした座標
-            this.clickposition = Input.mousePosition;
+            Vector3 temp;
+            temp = Input.mousePosition;
+            this.clickposition = Camera.main.ScreenToWorldPoint(temp);
+            Debug.Log(clickposition);
             Vector2Int calculated = new Vector2Int();
             calculated.x = calculatex(clickposition.x);
             calculated.y = calculatey(clickposition.y);

@@ -6,8 +6,8 @@ public class Player : MonoBehaviour
 {
     FieldData[,] fieldData = new FieldData[10, 10];
     public Vector3 clickposition;
-    public int gap = 77;
-    public float startx = 50, starty=950;
+    public float gap = 0.6f;
+    public float startx = -2.4f, starty=2.4f;
     // read only 
     protected int stone, opponentStone;
 
